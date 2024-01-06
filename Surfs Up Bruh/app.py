@@ -43,7 +43,8 @@ def welcome():
         f"/api/v1.0/stations <br/>"
         f"/api/v1.0/tobs <br/>"
         f"/api/v1.0/temp/start/end <br/>"
-            f"enter date: yyyy-mm-dd"
+            f"enter date: mmddyyyy"
+            f"example: 10012016"
     )
 
 # Create our session (link) from Python to the DB
@@ -84,7 +85,6 @@ def stats(start=None, end=None):
     sel = [func.min(measurement.tobs), func.avg(measurement.tobs), func.max(measurement.tobs)]       
     if not end:
         start = dt.datetime.strptime(start, "%m%d%Y")
-#         start = dt.datetime.strptime(start, "Y%m%d")
         results = session.query(*sel).\
             filter(measurement.date >= start).all()
 #         session.close()
@@ -100,7 +100,7 @@ def stats(start=None, end=None):
     return jsonify(temps = temps)
 
     
-# session.close()
+session.close()
 
 if __name__ == '__main__':
     app.run(debug=True)
