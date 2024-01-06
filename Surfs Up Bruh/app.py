@@ -83,19 +83,24 @@ def stats(start=None, end=None):
     # Select statement
     sel = [func.min(measurement.tobs), func.avg(measurement.tobs), func.max(measurement.tobs)]       
     if not end:
-#         start = dt.datetime.strptime(start, "%m%d%Y")
-        start = dt.datetime.strptime(start, "Y%m%d")
+        start = dt.datetime.strptime(start, "%m%d%Y")
+#         start = dt.datetime.strptime(start, "Y%m%d")
         results = session.query(*sel).\
             filter(measurement.date >= start).all()
-        session.close()
+#         session.close()
         temps = list(np.ravel(results))
-        return jsonify(temps)
+        return jsonify(temps = temps)
+    
     start = dt.datetime.strptime(start, "%m%d%Y")
     end = dt.datetime.strptime(end, "%m%d%Y")
-
+    results = session.query(*sel).\
+        filter(measurement.date >= start).\
+        filter(measurement.date < end).all()
+    temps = list(np.ravel(results))
+    return jsonify(temps = temps)
 
     
-session.close()
+# session.close()
 
 if __name__ == '__main__':
     app.run(debug=True)
