@@ -76,9 +76,23 @@ def temperature():
         temperature = list(np.ravel(results))
         return jsonify(temperature = temperature)
 
-@app.route("/api/v1.0/temp/start/end")
-def imstuck():    
-    return "Tried to get this portion to work and coming up way short"
+@app.route("/api/v1.0/temp/<start>")
+@app.route("/api/v1.0/temp/<start>/<end>")
+def stats(start=None, end=None):
+    """Return TMIN, TAVG, TMAX."""
+    # Select statement
+    sel = [func.min(measurement.tobs), func.avg(measurement.tobs), func.max(measurement.tobs)]       
+    if not end:
+#         start = dt.datetime.strptime(start, "%m%d%Y")
+        start = dt.datetime.strptime(start, "Y%m%d")
+        results = session.query(*sel).\
+            filter(measurement.date >= start).all()
+        session.close()
+        temps = list(np.ravel(results))
+        return jsonify(temps)
+    start = dt.datetime.strptime(start, "%m%d%Y")
+    end = dt.datetime.strptime(end, "%m%d%Y")
+
 
     
 session.close()
