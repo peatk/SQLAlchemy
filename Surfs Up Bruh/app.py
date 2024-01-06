@@ -43,8 +43,9 @@ def welcome():
         f"/api/v1.0/stations <br/>"
         f"/api/v1.0/tobs <br/>"
         f"/api/v1.0/temp/start/end <br/>"
-            f"enter date: mmddyyyy"
+            f"enter date: mmddyyyy <br/>"
             f"example: 10012016"
+            f"example: 08302016/10012016"
     )
 
 # Create our session (link) from Python to the DB
