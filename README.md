@@ -1,5 +1,4 @@
-# SQLAlchemy Script
-Analyze and Explore the Climate Data
+# Using SQLAlchemy To Analyze and Explore the Climate Data
 
 I have decided to treat my family to a long holiday vacation in Honolulu, Hawaii. To help with the trip planning, I decided to do a climate analysis about the area. The following sections outline the steps that you need to take to accomplish this task.
 
